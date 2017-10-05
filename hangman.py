@@ -27,31 +27,37 @@ def play_round():
     while True:
         # keep track of how many you currently have correct
         target = correct
-        guess = raw_input("What letter would you like to guess? ")
+        stupid_test = True
+        while stupid_test:
+            guess = raw_input("What letter would you like to guess? ").upper()
+            if guess not in guesses:
+                stupid_test = False
+            else:
+                print "You already tried " + guess + ". Get more creative!"        
         guesses.append(guess)
         for i, letter in enumerate(targetword[0]):
-            if guess == letter:
+            if guess == letter.upper():
                 correctguessset[i] = guess
                 correct += 1
+        print "***************"
         if correct > target:
             if correct == len(targetword[0]):
                 print "Congratulations. You won!"
                 start_game()
             else:
-                print "You now have the following letters: "
-                print correctguessset
-                print "You have tried the following letters: "
-                print guesses
+                print "Nice job,", guess.upper(), "is in the word."
         else:
-            print "Sorry, " + guess + " is not present in this word."
+            print "Sorry, " + guess.upper() + " is not present in this word."
             wrongguess += 1
-            print_hangman(wrongguess)
-            print "You have tried the following letters: "
-            print guesses
-        if wrongguess > 5:
-            print_hangman(wrongguess)
-            print "Sorry, you lost this round."
-            start_game() 
+            if wrongguess > 5:
+                print_hangman(wrongguess)
+                print "Sorry, you lost this round."
+                print "If you were wondering, the word was", targetword[0] + ". What a doozy..."
+                print "***********"
+                start_game() 
+        print_hangman(wrongguess)
+        print "You have these letters: ", correctguessset
+        print "You have tried the following letters: ", guesses
 
 def start_game():
     answer = raw_input("Would you like to play hangman? yes/no: ")
