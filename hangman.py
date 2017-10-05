@@ -5,10 +5,10 @@ import sys
 
 # define set of available words
 
-f = file('/usr/share/dict/words').readlines()
+f = file('google-10000-english-usa.txt').readlines()
 choices = []
 for line in f:
-    line = line[:-2]
+    line = line[:-1]
     choices.append(line)
 
 # pick a word
@@ -42,7 +42,11 @@ def play_round():
         print "***************"
         if correct > target:
             if correct == len(targetword[0]):
+                print "***************"
+                print "***************"
+                print "***************"
                 print "Congratulations. You won!"
+                print "It was that dastardly mouthful", targetword[0].upper()
                 start_game()
             else:
                 print "Nice job,", guess.upper(), "is in the word."
