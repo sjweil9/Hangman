@@ -2,6 +2,7 @@
 
 import random
 import sys
+import os
 
 # define set of available words
 
@@ -39,9 +40,10 @@ def play_round():
             if guess == letter.upper():
                 correctguessset[i] = guess
                 correct += 1
-        print "***************"
         if correct > target:
             if correct == len(targetword[0]):
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print_hangman(wrongguess)
                 print "***************"
                 print "***************"
                 print "***************"
@@ -54,11 +56,13 @@ def play_round():
             print "Sorry, " + guess.upper() + " is not present in this word."
             wrongguess += 1
             if wrongguess > 5:
+                os.system('cls' if os.name == 'nt' else 'clear')
                 print_hangman(wrongguess)
                 print "Sorry, you lost this round."
                 print "If you were wondering, the word was", targetword[0] + ". What a doozy..."
                 print "***********"
-                start_game() 
+                start_game()
+        os.system('cls' if os.name == 'nt' else 'clear')
         print_hangman(wrongguess)
         print "You have these letters: ", correctguessset
         print "You have tried the following letters: ", guesses
